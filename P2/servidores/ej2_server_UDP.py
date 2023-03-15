@@ -9,8 +9,6 @@ direccion_servidor = ('localhost', 1025)
 s_udp.bind(direccion_servidor)
 
 print("Me quedo a la espera")
-mensaje, addr = s_udp.recvfrom(1024)
-print(str(mensaje.decode("utf-8")))
 
 archivo, addr = s_udp.recvfrom(1024)
 print("Nombre del archivo para enviar: " + archivo.decode("utf-8"))
