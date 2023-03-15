@@ -43,6 +43,8 @@ if existe == True:
             f.write(data)
 
 else:
+    s_cliente.send("El archivo no existe".encode("utf-8"))
+
     data = b''
     while True:
         chunk = s_cliente.recv(1024)
@@ -56,3 +58,7 @@ else:
         f.write(data)
 
 s_cliente.send("Archivo recibido".encode("utf-8"))
+print("Transferencia completa")
+
+s_cliente.close()
+s_servidor.close()
