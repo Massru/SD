@@ -30,6 +30,8 @@ if existe == True:
     if respuesta == 's':
         print('Se sobreescribe')
 
+        os.remove(archivo)
+
         data = b''
         while True:
             chunk = s_cliente.recv(1024)
@@ -41,6 +43,10 @@ if existe == True:
 
         with open(archivo, 'wb') as f:
             f.write(data)
+
+        s_cliente.send("Archivo recibido".encode("utf-8"))
+        print("Transferencia completa")
+
 
 else:
     s_cliente.send("El archivo no existe".encode("utf-8"))
@@ -57,8 +63,9 @@ else:
     with open(archivo, 'wb') as f:
         f.write(data)
 
-s_cliente.send("Archivo recibido".encode("utf-8"))
-print("Transferencia completa")
+    s_cliente.send("Archivo recibido".encode("utf-8"))
+    print("Transferencia completa")
+
 
 s_cliente.close()
 s_servidor.close()

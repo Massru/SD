@@ -14,21 +14,25 @@ s.send(archivo.encode("utf-8"))
 with open(archivo, 'rb') as f:
     data = f.read()
 
-
 existe = s.recv(1024).decode("utf-8")
 
-
 if existe == 'Archivo existente, ¿desea sobreescribir? s/n':
-    respuesta = input(existe + ': ')
+    respuesta = input(existe + ': ').encode("utf-8")
+    s.send(respuesta)
 
-    s.sendall(data)
-    s.send(b'\xe2\x90\x84')    
+    if respuesta.decode("utf-8") == 's':
+        s.sendall(data)
+        s.send(b'\xe2\x90\x84')    
+        os.remove(archivo)
+    if respuesta.decode("utf-8") == 'n':
+        print("Transferencia cancelada")
 
 else:
     s.sendall(data)
     s.send(b'\xe2\x90\x84')
 
+    os.remove(archivo)
+
 confirmacion = s.recv(1024).decode("utf-8")
 print(confirmacion)
 
-os.remove(archivo)
