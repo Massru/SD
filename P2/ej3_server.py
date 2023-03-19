@@ -14,15 +14,16 @@ s_cliente.send('Nombre del archivo que quiere invertir :'.encode("utf-8"))
 
 contenido = s_cliente.recv(1024)
 
-i = len(contenido)
+contenido_invertido = contenido[::-1]
 
-with open('invertido.txt', 'w') as f:
-    f.write('')
-
-while i > 0:
-    with open('invertido.txt', 'a') as f:
-        f.write(contenido[i])
+with open('invertido.txt', 'wb') as f:
+    f.write(contenido_invertido)
 
 tamanno = os.stat('invertido.txt').st_size
 
-s_cliente.send('El tamaño del archivo son ' + str(tamanno) + ' B'.encode("utf-8"))
+s_cliente.sendall(contenido_invertido)
+s_cliente.sendall(str(tamanno).encode("utf-8"))
+
+
+s_cliente.close()
+s_servidor.close()
