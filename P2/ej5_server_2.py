@@ -1,7 +1,7 @@
 import socket
 import os
 
-direccion_servidor = ('localhost', 1025)
+direccion_servidor = ('localhost', 1026)
 
 s_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s_servidor.bind(direccion_servidor)
@@ -18,7 +18,7 @@ if imagen.endswith(".jpg"):
 
     print(ruta)
 
-    ficheros = os.listdir(ruta + "\..")
+    ficheros = os.listdir(ruta)
 
     i = 0
     existe = False
@@ -29,9 +29,21 @@ if imagen.endswith(".jpg"):
 
 
     if existe != True:
-        print("Imagen no encontrada")
+        raise ValueError('Imagen no encontrada')
     else:
         print("Imagen encontrada")
+
+    datos = s_cliente.recv(1024)
+    while True:
+        chunk = s_cliente.recv(1024)
+        find = chunk.find(b'\xe2\x90\x84')
+        if find != -1:
+            datos += chunk[:find]
+            break
+        datos += chunk
+
+    with open('copia.jpg', 'wb') as f:
+        f.write(datos)
         
 else:
     print("El archivo no es una imagen")
