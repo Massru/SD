@@ -11,12 +11,11 @@ s_cliente, direccion_cliente = s_servidor.accept()
 
 s_cliente.send("¿Que imagen jpg quiere obtener? ".encode("utf-8"))
 
-imagen = s_cliente.recv(1024)
+imagen = s_cliente.recv(1024).decode("utf-8")
 
 i = 0
 existe = False
 ficheros = os.listdir()
-print(ficheros)
 
 while i < len(ficheros):
     if imagen == ficheros[i]:
