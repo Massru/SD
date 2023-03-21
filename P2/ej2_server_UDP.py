@@ -5,7 +5,7 @@ import os
 ficheros = os.listdir()
 
 s_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-direccion_servidor = ('localhost', 1025)
+direccion_servidor = ('localhost', 1111)
 s_udp.bind(direccion_servidor)
 
 print("Me quedo a la espera")
@@ -29,15 +29,9 @@ if existe == True:
     if respuesta.decode("utf-8") == 's':
         print('Se sobreescribe')
 
-        data = b''
-        while True:
-            chunk = s_udp.recv(1024)
-            find = chunk.find(b'\xe2\x90\x84')
-            if find != -1:
-                data += chunk[:find]
-                break
-            data += chunk
-
+        tamanno, addr = s_udp.recv(1024)
+        data = s_udp.recv(tamanno)
+            
         with open(nombre_archivo, 'wb') as f:
             f.write(data)
 
@@ -45,14 +39,8 @@ else:
     s_udp.sendto("El archivo no existe".encode("utf-8"), addr)
     print("El archivo no existe")
 
-    data = b''
-    while True:
-        chunk = s_udp.recv(1024)
-        find = chunk.find(b'\xe2\x90\x84')
-        if find != -1:
-            data += chunk[:find]
-            break
-        data += chunk
+    tamanno, addr = s_udp.recv(1024)
+    data = s_udp.recv(tamanno)
 
     with open(nombre_archivo, 'wb') as f:
         f.write(data)
