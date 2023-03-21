@@ -18,9 +18,32 @@ opcion = s_cliente.recv(1024).decode("utf-8")
 while True:
 
     if opcion == '4':
+
         break
+    
     elif opcion == '1':
-        break
+
+        s_cliente.send("Archivo que quiere recibir: ".encode("utf-8"))
+        archivo = s_cliente.recv(1024).decode("utf-8")
+
+        i = 0
+        existe = False
+        while i < len(os.listdir()):
+            if archivo == os.listdir()[i]:
+                existe = True
+            i += 1
+
+        if existe != True:
+            s_cliente.send("No existe".encode("utf-8"))
+            raise ValueError("Archivo no encontrado")
+        else:
+            with open(archivo, 'rb') as f:
+                datos = f.read()
+
+            s_cliente.sendall(datos)
+            s_cliente.send(b'\xe2\x90\x84')
+
+
     elif opcion == '2':
 
         directorio = os.listdir()
@@ -36,8 +59,21 @@ while True:
         s_cliente.send(ficheros_bytes)
 
     elif opcion == '3':
-        break
+
+        if s_cliente.recv(1024).decode("utf-8") == 'No existe':
+            raise ValueError("Error en el cliente, archivo no encontrado")
+        else:
+            datos = s_cliente.recv(1024)
+            while True:
+                chunk = s_cliente.recv(1024)
+                find = chunk.find(b'\xe2\x90\x84')
+                if find != -1:
+                    datos += chunk[:find]
+                    break
+                datos += chunk
+
     else:
+        
         print("Opción no válida")
         break
 
