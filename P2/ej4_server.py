@@ -24,8 +24,6 @@ while respuesta.decode("utf-8") != 'exit':
     else:
         s.sendto("Lo siento, no puedo ayudar".encode("utf-8"), addr)
 
-    #s.sendto(str(nombre.decode("utf-8")).encode("utf-8") + ", ¿en qué puedo ayudarte?".encode("utf-8"), addr)
-
     respuesta, addr = s.recvfrom(1024)
 
 s.close()
