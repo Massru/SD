@@ -4,6 +4,7 @@ import os
 direccion_servidor = ('localhost', 1025)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
 
 s.connect(direccion_servidor)
 
@@ -24,7 +25,7 @@ if imagen.endswith(".jpg"):
             break
         datos += chunk
 
-    with open('copia2.jpg', 'wb')  as f:
+    with open(imagen, 'wb')  as f:
         f.write(datos)
 
 

@@ -4,6 +4,7 @@ import os
 direccion_servidor = ('localhost', 1025)
 
 s_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s_servidor.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
 s_servidor.bind(direccion_servidor)
 s_servidor.listen(1)
 
