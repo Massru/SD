@@ -4,7 +4,9 @@ from _thread import *
 direccion_servidor = ('127.0.0.1', 1024)
 contadorhebras = 0
 
-ss = socket.socket()
+ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ss.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
+
 
 try:
     ss.bind(direccion_servidor)
@@ -12,6 +14,7 @@ except socket.error as e:
     print(str(e))
 
 ss.listen(5)
+
 
 def hebra_cliente(connection):
     connection.send(str.encode('Welcome to the Server'))

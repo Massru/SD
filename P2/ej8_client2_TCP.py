@@ -11,7 +11,7 @@ response = s.recv(1024)
 while True:
     mensaje = input()
     s.send(str.encode(mensaje))
-    if mensaje != 'exit':
+    if mensaje != 'desconectar':
         response = s.recv(1024)
         print(response.decode('utf-8'))
     else:

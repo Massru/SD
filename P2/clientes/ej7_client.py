@@ -35,6 +35,9 @@ while True:
                     break
                 datos += chunk
 
+            with open(archivo, 'wb') as f:
+                f.write(datos)
+
     elif opcion == '2':
 
         ficheros = s.recv(1024)
@@ -60,6 +63,7 @@ while True:
             s.send("No existe".encode("utf-8"))
             raise ValueError("Archivo no encontrado")
         else:
+            s.send(archivo.encode("utf-8"))
             with open(archivo, 'rb') as f:
                 datos = f.read()
                 

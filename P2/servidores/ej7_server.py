@@ -37,6 +37,7 @@ while True:
             s_cliente.send("No existe".encode("utf-8"))
             raise ValueError("Archivo no encontrado")
         else:
+            s_cliente.send("existe".encode("utf-8"))
             with open(archivo, 'rb') as f:
                 datos = f.read()
 
@@ -60,7 +61,9 @@ while True:
 
     elif opcion == '3':
 
-        if s_cliente.recv(1024).decode("utf-8") == 'No existe':
+        archivo = s_cliente.recv(1024).decode("utf-8")
+
+        if archivo == 'No existe':
             raise ValueError("Error en el cliente, archivo no encontrado")
         else:
             datos = s_cliente.recv(1024)
@@ -71,6 +74,9 @@ while True:
                     datos += chunk[:find]
                     break
                 datos += chunk
+
+            with open(archivo, 'wb') as f:
+                f.write(datos)
 
     else:
         
