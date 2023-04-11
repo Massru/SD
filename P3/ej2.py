@@ -1,6 +1,6 @@
 import json
 
-from bottle import post, request, run
+from bottle import post, get, request, run
 
 mis_elementos = [1, 2]
 
@@ -23,4 +23,10 @@ def inserta():
 
     return json.dumps({'mis_elementos': mis_elementos})
 
+@get('/')
+def ver():
+    
+    return({'mis_elementos': mis_elementos})
+
 run(host='localhost', port=8090)
+
