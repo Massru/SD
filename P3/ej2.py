@@ -8,7 +8,6 @@ mis_elementos = [1, 2]
 def inserta():
     try:
         data = json.load((request.body))
-        print(data)
     except:
         raise ValueError
     
@@ -19,12 +18,9 @@ def inserta():
             existe = True
         i += 1
 
-    print(mis_elementos)
-    
-    if existe == True:
-        return json.dumps({'mis_elementos': mis_elementos})
-    else:
+    if existe == False:
         mis_elementos.append(data['elemento'])
-        return json.dumps(mis_elementos + {'elemento': data['elemento']})
+
+    return json.dumps({'mis_elementos': mis_elementos})
 
 run(host='localhost', port=8090)
