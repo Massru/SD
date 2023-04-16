@@ -11,6 +11,43 @@ class Room:
         self.equip = equip
         self.free = free
 
+
+@get('/listrooms')
+def list_rooms():
+    rooms = []
+
+    for key, value in database.items():
+        rooms.append({'code': key, "tam": value.tam, "equip": value.equip, "free": value.free})
+
+    response.headers['Content-Type'] = 'application/json'
+
+    return json.dumps(rooms)
+
+@get('/listroom/<room_code>')
+def list_room(room_code):
+    room = []
+
+    for key, value in database.items():
+        if value.code == room_code:
+            room.append({'code': key, "tam": value.tam, "equip": value.equip, "free": value.free})
+    
+    response.headers['Content-Type'] = 'application/json'
+
+    return json.dumps(room)
+
+@get('/listroom/<room_status>')
+def list_room(room_status):
+    room = []
+
+    for key, value in database.items():
+        if value.free == room_status:
+            room.append({'code': key, "tam": value.tam, "equip": value.equip, "free": value.free})
+    
+    response.headers['Content-Type'] = 'application/json'
+
+    return json.dumps(room)
+
+
 @post('/addroom')
 def add_room():
 
@@ -30,18 +67,6 @@ def add_room():
     dict_to_parse = {'code': code, 'tam': tam, 'equip': equip, 'free': free}
 
     return json.dumps(dict_to_parse)
-
-
-@get('/listrooms')
-def list_rooms():
-    rooms = []
-
-    for key, value in database.items():
-        rooms.append({'code': key, "tam": value.tam, "equip": value.equip, "free": value.free})
-
-    response.headers['Content-Type'] = 'application/json'
-
-    return json.dumps(rooms)
 
 @put('/updateroom/<room_code>')
 def update_room(room_code):
