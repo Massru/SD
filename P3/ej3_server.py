@@ -35,7 +35,7 @@ def list_room(room_code):
 
     return json.dumps(room)
 
-@get('/listroom/<room_status>')
+@get('/listisfree/<room_status>')
 def list_room(room_status):
     room = []
 

@@ -52,7 +52,7 @@ while opcion != 6:
         print(response.text)
     if opcion == 5:
         free = input("Desea buscar habitaciones libres (si/no): ")
-        response = requests.get(servidor + '/listroom/' + free)
+        response = requests.get(servidor + '/listisfree/' + free)
         print("")
         print(response.text)
     if opcion == 6:
