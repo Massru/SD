@@ -43,17 +43,14 @@ while opcion != 6:
         print("Modificación realizada")
     if opcion == 3:
         response = requests.get(servidor + '/listrooms')
-        print("")
         print(response.text)
     if opcion == 4:
         code = input("Identificador de la habitacion: ")
         response = requests.get(servidor + '/listroom/' + code)
-        print("")
         print(response.text)
     if opcion == 5:
         free = input("Desea buscar habitaciones libres (si/no): ")
         response = requests.get(servidor + '/listisfree/' + free)
-        print("")
         print(response.text)
     if opcion == 6:
         sys.exit("Adiós")

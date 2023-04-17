@@ -35,6 +35,18 @@ def list_personal(personal_dni):
     response.headers['Content-Type'] = 'application/json'
 
     return json.dumps(personal)
+
+@get('/listcategoria/<nombre_categoria>')
+def list_categoria(nombre_categoria):
+    personal = dict()
+
+    for key, value in database.items():
+        if value.categoria == nombre_categoria:
+            personal.update({"code": key, "nombre": value.nombre, "correo": value.correo, "departamento": value.departamento, "categoria": value.categoria, "asignaturas": value.asignaturas})
+
+    response.headers['Content-Type'] = 'application/json'
+
+    return json.dumps(personal)
     
 @post('/addpersonal')
 def add_personal():
