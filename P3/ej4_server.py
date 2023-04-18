@@ -15,22 +15,22 @@ class Personal:
 
 @get('/listpersonal')
 def list_personal():
-    personal = dict()
+    personal = []
 
     for key, value in database.items():
-        personal.update({"dni": key, "nombre": value.nombre, "correo": value.correo, "departamento": value.departamento, "categoria": value.categoria, "asignaturas": value.asignaturas})
+        personal.append({"code": key, "nombre": value.nombre, "correo": value.correo, "departamento": value.departamento, "categoria": value.categoria, "asignaturas": value.asignaturas})
 
-        response.headers['Content-Type'] = 'application/json'
+    response.headers['Content-Type'] = 'application/json'
 
-        return json.dumps(personal)
+    return json.dumps(personal)
     
 @get('/listpersonal/<personal_dni>')
 def list_personal(personal_dni):
-    personal = dict()
+    personal = []
 
     for key, value in database.items():
-        if value.code == personal_dni:
-            personal.update({"code": key, "nombre": value.nombre, "correo": value.correo, "departamento": value.departamento, "categoria": value.categoria, "asignaturas": value.asignaturas})
+        if value.dni == personal_dni:
+            personal.append({"code": key, "nombre": value.nombre, "correo": value.correo, "departamento": value.departamento, "categoria": value.categoria, "asignaturas": value.asignaturas})
 
     response.headers['Content-Type'] = 'application/json'
 
@@ -38,11 +38,11 @@ def list_personal(personal_dni):
 
 @get('/listcategoria/<nombre_categoria>')
 def list_categoria(nombre_categoria):
-    personal = dict()
+    personal = []
 
     for key, value in database.items():
         if value.categoria == nombre_categoria:
-            personal.update({"code": key, "nombre": value.nombre, "correo": value.correo, "departamento": value.departamento, "categoria": value.categoria, "asignaturas": value.asignaturas})
+            personal.append({"code": key, "nombre": value.nombre, "correo": value.correo, "departamento": value.departamento, "categoria": value.categoria, "asignaturas": value.asignaturas})
 
     response.headers['Content-Type'] = 'application/json'
 

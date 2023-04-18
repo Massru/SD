@@ -24,9 +24,9 @@ while opcion != 6:
 
     opcion = 0 #Resetear el valor opcion
 
-while opcion <1 or opcion >6:
-    opcion = input()
-    opcion = int(opcion)
+    while opcion <1 or opcion >6:
+        opcion = input()
+        opcion = int(opcion)
 
     if opcion == 1:
         dni = input("introduzca el DNI: ")
