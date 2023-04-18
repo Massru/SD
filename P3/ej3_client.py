@@ -33,14 +33,12 @@ while opcion != 6:
         equip = input("Introduzca el equipamiento de la habitacion: ")
         free = input("Introduzca si la habitacion está libre (si/no): ")
         response = requests.post(servidor + '/addroom', json={"code": code, "tam": tam, "equip": equip, "free": free})
-        print("Habitación añadida")
     if opcion == 2:
         code = input("Introduzca numero de habitacion a editar: ")
         tam = input("Introduzca el numero de plazas de la habitacion: ")
         equip = input("Introduzca el equipamiento de la habitacion: ")
         free = input("Introduzca si la habitacion está libre (si/no): ")
         response = requests.put(servidor + '/updateroom/' + code, json={"tam": tam, "equip": equip, "free": free})
-        print("Modificación realizada")
     if opcion == 3:
         response = requests.get(servidor + '/listrooms')
         print(response.text)
@@ -53,4 +51,4 @@ while opcion != 6:
         response = requests.get(servidor + '/listisfree/' + free)
         print(response.text)
     if opcion == 6:
-        sys.exit("Adiós")
+        sys.exit("Fin de la conexión")
