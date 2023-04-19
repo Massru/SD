@@ -59,6 +59,18 @@ def activate(user):
 
     return json.dumps(dict_to_parse)
 
+@get('/listusers')
+def listusers():
+
+    users = []
+
+    for key, value in database.items():
+        users.append({"user": key, "password": value.password, "activate": value.activate, "correo": value.correo, "name": value.name})
+
+    response.headers['Content-Type'] = 'application/json'
+
+    return json.dumps(users)
+
 if __name__ == '__main__':
 
     run(host = 'localhost', port = 8092, debug = True)

@@ -9,19 +9,20 @@ servidor = direccion + puerto
 
 opcion = 0
 
-while opcion != 4:
+while opcion != 5:
 
     menu = '''Elige la opción que desea realizar:
         1. Registrar un usuario
         2. Activar una cuenta
         3. Busqueda de usuario
-        4. Salir'''
+        4. Listar usuarios
+        5. Salir'''
     
     print(menu)
 
     opcion = 0 #Resetear el valor opcion
 
-    while opcion <1 or opcion >4:
+    while opcion <1 or opcion >5:
         opcion = input()
         opcion = int(opcion)
 
@@ -41,4 +42,7 @@ while opcion != 4:
         response = requests.get(servidor + '/listuser/' + cadena)
         print(response.text)
     if opcion == 4:
+        response = requests.get(servidor + '/listusers')
+        print(response.text)
+    if opcion == 5:
         sys.exit("Fin de la conexión")

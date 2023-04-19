@@ -58,4 +58,4 @@ while opcion != 6:
         response = requests.get(servidor + '/listcategoria/' + categoria)
         print(response.text)
     if opcion == 6:
-        sys.exit("Adiós")
+        sys.exit("Fin de la conexión")
