@@ -29,7 +29,7 @@ while opcion != 6:
         opcion = int(opcion)
 
     if opcion == 1:
-        dni = input("introduzca el DNI: ")
+        dni = input("Introduzca el DNI: ")
         nombre = input("Introduzca el nombre: ")
         correo = input("Introduzca el correo: ")
         departamento = input("Introduzca el departamento: ")
